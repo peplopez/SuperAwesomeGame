@@ -1,12 +1,24 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2017
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuperAwesomeGame", "SuperAwesomeGame.csproj", "{F137A1EE-829A-9B41-5E21-D0C65A913515}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuperAwesomeGame.Editor", "SuperAwesomeGame.Editor.csproj", "{06760B6E-8567-4032-1FB0-B3C0DC9D5764}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F137A1EE-829A-9B41-5E21-D0C65A913515}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F137A1EE-829A-9B41-5E21-D0C65A913515}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F137A1EE-829A-9B41-5E21-D0C65A913515}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F137A1EE-829A-9B41-5E21-D0C65A913515}.Release|Any CPU.Build.0 = Release|Any CPU
+		{06760B6E-8567-4032-1FB0-B3C0DC9D5764}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{06760B6E-8567-4032-1FB0-B3C0DC9D5764}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{06760B6E-8567-4032-1FB0-B3C0DC9D5764}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{06760B6E-8567-4032-1FB0-B3C0DC9D5764}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
