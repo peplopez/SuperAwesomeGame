@@ -182,7 +182,9 @@ namespace TouchScript.Behaviors
 
         private void OnDisable()
         {
-            if (gesture != null) gesture.StateChanged -= stateChangedHandler;
+            if (gesture != null)
+				gesture.StateChanged -= stateChangedHandler;
+
             if (TouchManager.Instance != null)
                 TouchManager.Instance.FrameFinished -= frameFinishedHandler;
 

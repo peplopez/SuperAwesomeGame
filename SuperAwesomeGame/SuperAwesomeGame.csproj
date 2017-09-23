@@ -90,6 +90,35 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Code\GameLogic\GameManager.cs" />
+    <Compile Include="Assets\Code\Gestures\CanvasController.cs" />
+    <Compile Include="Assets\TouchScript\Examples\_misc\Scripts\Checker.cs" />
+    <Compile Include="Assets\TouchScript\Examples\_misc\Scripts\ExamplesList.cs" />
+    <Compile Include="Assets\TouchScript\Examples\_misc\Scripts\Highlight.cs" />
+    <Compile Include="Assets\TouchScript\Examples\_misc\Scripts\KillMe.cs" />
+    <Compile Include="Assets\TouchScript\Examples\_misc\Scripts\Runner.cs" />
+    <Compile Include="Assets\TouchScript\Examples\_misc\Scripts\ShowMe.cs" />
+    <Compile Include="Assets\TouchScript\Examples\Camera\Scripts\CameraController.cs" />
+    <Compile Include="Assets\TouchScript\Examples\Checkers\Scripts\Board.cs" />
+    <Compile Include="Assets\TouchScript\Examples\Checkers\Scripts\Exclusive.cs" />
+    <Compile Include="Assets\TouchScript\Examples\Colors\Scripts\Circle.cs" />
+    <Compile Include="Assets\TouchScript\Examples\Colors\Scripts\Colors.cs" />
+    <Compile Include="Assets\TouchScript\Examples\Cube\Scripts\CustomPointerProxy.cs" />
+    <Compile Include="Assets\TouchScript\Examples\Cube\Scripts\Init.cs" />
+    <Compile Include="Assets\TouchScript\Examples\Cube\Scripts\LayerDelegate.cs" />
+    <Compile Include="Assets\TouchScript\Examples\Cube\Scripts\RedirectInput.cs" />
+    <Compile Include="Assets\TouchScript\Examples\Multiuser\Scripts\Logo.cs" />
+    <Compile Include="Assets\TouchScript\Examples\Photos\Scripts\Container.cs" />
+    <Compile Include="Assets\TouchScript\Examples\Photos\Scripts\SetColor.cs" />
+    <Compile Include="Assets\TouchScript\Examples\Portal\Scripts\Planet.cs" />
+    <Compile Include="Assets\TouchScript\Examples\Portal\Scripts\Rotator.cs" />
+    <Compile Include="Assets\TouchScript\Examples\Portal\Scripts\Spawner.cs" />
+    <Compile Include="Assets\TouchScript\Examples\Portal\Scripts\Vortex.cs" />
+    <Compile Include="Assets\TouchScript\Examples\RawInput\Scripts\Ball.cs" />
+    <Compile Include="Assets\TouchScript\Examples\RawInput\Scripts\Spawner.cs" />
+    <Compile Include="Assets\TouchScript\Examples\Taps\Scripts\Break.cs" />
+    <Compile Include="Assets\TouchScript\Examples\Taps\Scripts\Kick.cs" />
+    <Compile Include="Assets\TouchScript\Examples\Taps\Scripts\Spawn.cs" />
     <Compile Include="Assets\TouchScript\Modules\TUIO\Scripts\InputSources\TuioInput.cs" />
     <Compile Include="Assets\TouchScript\Scripts\Behaviors\Cursors\CursorManager.cs" />
     <Compile Include="Assets\TouchScript\Scripts\Behaviors\Cursors\MouseCursor.cs" />
@@ -183,6 +212,8 @@
     <Compile Include="Assets\TouchScript\Scripts\Utils\TransformUtils.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\TouchScript\Examples\_misc\Shaders\BorderDiffuse.shader" />
+    <None Include="Assets\TouchScript\Examples\_misc\Shaders\UnlitColor.shader" />
     <None Include="Assets\TouchScript\Shaders\Cursor.shader" />
     <None Include="Assets\TouchScript\Shaders\DebugDepthTest.shader" />
     <None Include="Assets\TouchScript\Shaders\DebugMultiplyDepthTest.shader" />
