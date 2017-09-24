@@ -9,6 +9,8 @@ public class ConstantsAndUtils
 
 	public readonly float OFFSET_X = 3;
 	public readonly float SPAWN_Y = 6;
+	public readonly float MIN_SPEED = 2f;
+	public readonly float MAX_SPEED = 5f;
 
 	public Vector2 LeftScreenLimit;
 	public Vector2 RightScreenLimit;

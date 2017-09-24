@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class GameManager : MonoBehaviour//Singleton<GameManager> //MonoBehaviour //Singleton<GameManager>
+public class GameManager : MonoBehaviour
 {
 	// Use this for initialization
 	public ConstantsAndUtils utils;

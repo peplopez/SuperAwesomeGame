@@ -163,6 +163,12 @@ Prefab:
       propertyPath: m_OrtographicCamera
       value: 
       objectReference: {fileID: 271610242}
+    - target: {fileID: 114128111741596014, guid: 87e2584da87e28d4183ce17b9953e5d8,
+        type: 2}
+      propertyPath: Asteroid
+      value: 
+      objectReference: {fileID: 1375848277753036, guid: 5f53cf34acbc45542950ec840fd721ae,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 87e2584da87e28d4183ce17b9953e5d8, type: 2}
   m_IsPrefabParent: 0
@@ -662,17 +668,26 @@ GameObject:
   m_PrefabParentObject: {fileID: 1375848277753036, guid: 5f53cf34acbc45542950ec840fd721ae,
     type: 2}
   m_PrefabInternal: {fileID: 1306889343}
---- !u!114 &1285297361
-MonoBehaviour:
+--- !u!50 &1285297361
+Rigidbody2D:
+  serializedVersion: 4
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1285297355}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3b93b58ea15aaa84db4102b8ec5f2dff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1001 &1306889343
 Prefab:
   m_ObjectHideFlags: 0
@@ -682,11 +697,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4980320703095958, guid: 5f53cf34acbc45542950ec840fd721ae, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -8
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4980320703095958, guid: 5f53cf34acbc45542950ec840fd721ae, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 6
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4980320703095958, guid: 5f53cf34acbc45542950ec840fd721ae, type: 2}
       propertyPath: m_LocalPosition.z
@@ -712,13 +727,9 @@ Prefab:
       propertyPath: m_RootOrder
       value: 7
       objectReference: {fileID: 0}
-    - target: {fileID: 4980320703095958, guid: 5f53cf34acbc45542950ec840fd721ae, type: 2}
-      propertyPath: m_LocalScale.x
-      value: 0.29093227
-      objectReference: {fileID: 0}
     - target: {fileID: 1375848277753036, guid: 5f53cf34acbc45542950ec840fd721ae, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5f53cf34acbc45542950ec840fd721ae, type: 2}

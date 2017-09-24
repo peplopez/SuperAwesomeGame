@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class AsteroidSpawner : MonoBehaviour {
-
+		
 	public GameObject Asteroid;
 	public float m_randomGenerationRate=0.5f;
 	
@@ -35,23 +35,35 @@ public class AsteroidSpawner : MonoBehaviour {
 	private GameObject CreateAsteroidOfRandomType()
 	{
 		GameObject randomAsteroid;
-		bool large=false;
-		
+		bool big=false;
+
 		//10% of asteroids will be of large type
-		large = UnityEngine.Random.Range(0, 10)==1;
-		float speed = UnityEngine.Random.Range(2, 5); 
+		big = ( UnityEngine.Random.Range(0, 10)==1 );		
 
-		randomAsteroid = Instantiate(Asteroid) ;		
+		randomAsteroid = Instantiate(Asteroid) ;
+		if (big)
+			randomAsteroid.AddComponent<BigAsteroid>();
+		else
+			randomAsteroid.AddComponent<Asteroid>();
 
-		randomAsteroid.transform.position = new Vector2(UnityEngine.Random.Range(App.GM.utils.LeftScreenLimitX, App.GM.utils.RightScreenLimitX), App.GM.utils.SPAWN_Y);
+		randomAsteroid.transform.position = GetRandomSpawnPosition();
 
-		if (large)
-			randomAsteroid.transform.localScale *= 2;
-
+		float speed = GetRandomSpeed(); 
 		randomAsteroid.GetComponent<Asteroid>().Speed = speed;
 
 		return randomAsteroid;
 	}
+
+	private Vector2 GetRandomSpawnPosition()
+	{
+		return new Vector2(UnityEngine.Random.Range(App.GM.utils.LeftScreenLimitX, App.GM.utils.RightScreenLimitX), App.GM.utils.SPAWN_Y);
+	}
+
+	private float GetRandomSpeed()
+	{
+		return UnityEngine.Random.Range(App.GM.utils.MIN_SPEED, App.GM.utils.MAX_SPEED);
+	}
+
 
 	// Update is called once per frame
 	void Update () {
