@@ -1,26 +1,27 @@
-﻿using UnityEngine;
-//The following class will make any class that inherits from it a singleton automatically:
-public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
+
+/// <summary>
+/// Singleton genérico 
+/// </summary>
+public class Singleton<TEntity> where TEntity : class, new()
 {
-    protected static T instance;
-    /**
-       Returns the instance of this singleton.
-    */
-    public static T Instance
+  private static volatile TEntity instance = default(TEntity);
+  private static object syncRoot = new object();
+
+  public static TEntity Instance
+  {
+    get
     {
-        get
+      if (instance == default(TEntity))
+      {
+        lock (syncRoot)
         {
-            if (instance == null)
-            {
-                instance = (T)FindObjectOfType(typeof(T));
-
-                if (instance == null)
-                {
-                    Debug.LogError("An instance of " + typeof(T) + " is needed in the scene, but there is none.");
-                }
-            }
-
-            return instance;
+          if (instance == default(TEntity))
+          {
+            instance = new TEntity();
+          }
         }
+      }
+      return instance;
     }
+  }
 }

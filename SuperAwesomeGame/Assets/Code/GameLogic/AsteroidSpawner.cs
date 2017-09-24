@@ -43,7 +43,7 @@ public class AsteroidSpawner : MonoBehaviour {
 
 		randomAsteroid = Instantiate(Asteroid) ;		
 
-		randomAsteroid.transform.position = new Vector2(UnityEngine.Random.Range(GameManager.Instance.utils.LeftScreenLimitX, GameManager.Instance.utils.RightScreenLimitX), GameManager.Instance.utils.SPAWN_Y);
+		randomAsteroid.transform.position = new Vector2(UnityEngine.Random.Range(App.GM.utils.LeftScreenLimitX, App.GM.utils.RightScreenLimitX), App.GM.utils.SPAWN_Y);
 
 		if (large)
 			randomAsteroid.transform.localScale *= 2;

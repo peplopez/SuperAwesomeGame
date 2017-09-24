@@ -21,7 +21,7 @@ public class Asteroid : MonoBehaviour {
 		transform.Translate(m_speed * Vector3.down * Time.deltaTime);
 
 		//Check collision to the ground
-		if (transform.position.y < GameManager.Instance.utils.GroundY)
+		if (transform.position.y < App.GM.utils.GroundY)
 			ImpactWithGround();
 	}
 
@@ -32,15 +32,17 @@ public class Asteroid : MonoBehaviour {
 	}
 
 	private void tapHandler(object sender, System.EventArgs e)
-	{		
+	{
+		Messaging.Send(gameObject, null, GameEvent.AsteroidHittedByPlayer, null);
 		m_tapGesture.Tapped -= tapHandler;
 		Debug.Log("Destroy");
-		StartCoroutine(DestroyCorroutine());		
+		StartCoroutine(DestroyCorroutine());
 	}
 
 	void ImpactWithGround()
 	{
 		m_tapGesture.Tapped -= tapHandler;
+		Messaging.Send(gameObject, null, GameEvent.AsteroidFallen, null);
 		StartCoroutine(DestroyCorroutine());
 		Debug.Log("Impact with ground. Player lose one life.");
 		
