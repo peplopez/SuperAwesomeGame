@@ -4,7 +4,7 @@ using TouchScript.Hit;
 using TouchScript.Gestures;
 using System;
 
-//For operations on the Canvas Screen, use only if it needed.
+//For operations on the Canvas Screen, use only if it is needed.
 
 public class CanvasController : MonoBehaviour
 {  
