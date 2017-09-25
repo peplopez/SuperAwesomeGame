@@ -22,6 +22,7 @@ ExportedObj/
 *.suo
 *.user
 *.booproj
+*.meta
  
 # -------------[ OS generated ]------------------------ #
 .DS_Store

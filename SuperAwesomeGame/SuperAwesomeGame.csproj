@@ -94,6 +94,7 @@
     <Compile Include="Assets\Code\GameLogic\Asteroid.cs" />
     <Compile Include="Assets\Code\GameLogic\AsteroidSpawner.cs" />
     <Compile Include="Assets\Code\GameLogic\BigAsteroid.cs" />
+    <Compile Include="Assets\Code\GameLogic\Clock.cs" />
     <Compile Include="Assets\Code\GameLogic\ConstantsAndUtils.cs" />
     <Compile Include="Assets\Code\GameLogic\GameEvent.cs" />
     <Compile Include="Assets\Code\GameLogic\GameManager.cs" />
