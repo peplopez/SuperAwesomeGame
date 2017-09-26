@@ -14,7 +14,9 @@ public class GameManager : MonoBehaviour
 	public AsteroidSpawner mAsteroidSpawner;
 
 	[SerializeField]
-	private Camera camera;
+	private Camera mCamera;
+	[SerializeField]
+	private Canvas mCanvas;
 
 	void SubscribeToEvents()
 	{
@@ -48,11 +50,12 @@ public class GameManager : MonoBehaviour
 	void Start ()
 	{
 		App.GM = this;
-		utils = new ConstantsAndUtils(camera);
+		utils = new ConstantsAndUtils(mCamera, mCanvas);
 
 		SetLevelProperties();
 		SubscribeToEvents();
 		mAsteroidSpawner.gameObject.SetActive(true);
+		Messaging.Send(gameObject, null, GameEvent.StartStage, null);
 		//mAsteroidSpawner.enabled = true;
 	}
 
@@ -70,6 +73,5 @@ public class GameManager : MonoBehaviour
 	void OnDisable()
 	{
 		UnSubscribeToEvents();
-		mAsteroidSpawner.enabled = false;
 	}
 }
