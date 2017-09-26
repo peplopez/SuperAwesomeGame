@@ -10,7 +10,7 @@ public enum GameEvent
 	-----------------------------------------------				---------------------------------				----------------------------------------------------
 	*/
 	
-	BeginStage,
+	StartStage,
 	EndStage,
 
 	AsteroidHittedByPlayer,								// 		-    										Asteroid has been hitted by player.

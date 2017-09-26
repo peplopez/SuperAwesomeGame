@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviour
 	public uint mCounterOfAsteriodsDestroyedByPlayer = 0;
 	public readonly uint INITIAL_LIVES = 5;
 	public uint mLives;
+	public Text mScore;
+	public AsteroidSpawner mAsteroidSpawner;
 
 	[SerializeField]
 	private Camera camera;
@@ -38,6 +40,7 @@ public class GameManager : MonoBehaviour
 	void OnAsteroidHittedByPlayer(GameObject sender, GameObject receiver, GameEvent gameEvent, object param)
 	{
 		mCounterOfAsteriodsDestroyedByPlayer++;
+		mScore.text = mCounterOfAsteriodsDestroyedByPlayer.ToString();
 		//Update counter in screen.
 
 	}
@@ -49,6 +52,8 @@ public class GameManager : MonoBehaviour
 
 		SetLevelProperties();
 		SubscribeToEvents();
+		mAsteroidSpawner.gameObject.SetActive(true);
+		//mAsteroidSpawner.enabled = true;
 	}
 
 	void SetLevelProperties()
@@ -65,5 +70,6 @@ public class GameManager : MonoBehaviour
 	void OnDisable()
 	{
 		UnSubscribeToEvents();
+		mAsteroidSpawner.enabled = false;
 	}
 }

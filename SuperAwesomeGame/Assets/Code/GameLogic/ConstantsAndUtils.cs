@@ -18,7 +18,7 @@ public class ConstantsAndUtils
 	public float LeftScreenLimitX;
 	public float RightScreenLimitX;
 
-	public float GroundY = -4f;
+	public float GroundY = -5; //-4
 
 #endregion
 

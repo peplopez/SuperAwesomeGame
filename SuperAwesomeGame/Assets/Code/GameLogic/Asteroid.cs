@@ -7,7 +7,7 @@ public class Asteroid : MonoBehaviour {
 	
 	protected TapGesture m_tapGesture;
 
-	float magnitude = 15;
+	float force = 100f;
 
 	//Is the large asteroid. I prefered not to choose a solution based on inhiterance for the case of the large asteroids. 
 	protected bool mBig=false;
@@ -17,16 +17,16 @@ public class Asteroid : MonoBehaviour {
 	public float Speed { get { return mSpeed; } set { mSpeed = value; } }
 	
 	private Vector2 mDirection;
-	// Use this for initialization
+	private Rigidbody2D physicsComponent;
+
 	protected void Start ()
 	{
 		AddGestures();
-	}
+	}	
 	
 	// Update is called once per frame
 	protected void Update () {
-		//Asteriod's fall
-			
+		//Asteriod's fall			
 		transform.Translate(mSpeed * Vector3.down * Time.deltaTime);
 
 		//if (gameObject.GetComponent<Rigidbody2D>() != null)
@@ -40,13 +40,14 @@ public class Asteroid : MonoBehaviour {
 	protected virtual void AddGestures()
 	{
 		m_tapGesture = GetComponent<TapGesture>();
+		
 		m_tapGesture.Tapped += tapHandler;
 	}
 
 	protected virtual void tapHandler(object sender, System.EventArgs e)
 	{
 		Messaging.Send(gameObject, null, GameEvent.AsteroidHittedByPlayer, null);
-		m_tapGesture.Tapped -= tapHandler;
+		//m_tapGesture.Tapped -= tapHandler;
 		Debug.Log("Destroy");
 		StartCoroutine(DestroyByPlayerHitCorroutine());
 	}
@@ -82,18 +83,21 @@ public class Asteroid : MonoBehaviour {
 
 	public void ActivateGravity(bool left)
 	{
-		gameObject.AddComponent<Rigidbody2D>();
+		if (physicsComponent != null)
+			Debug.LogError("Incorrect use for this method, physicsComponent should be null");
 
-		//if (gameObject.GetComponent<Rigidbody2D>() == null)
-		//return;
+		Invoke("StopGravity", 0.4f);
+		physicsComponent = gameObject.AddComponent<Rigidbody2D>();
 		
+		mDirection = new Vector2((left ? -force : force), 1);
 
-		Rigidbody2D physicsComponent = gameObject.GetComponent<Rigidbody2D>();
-		//Vector2 direction;
-		//direction = transform.up.normalized;
-		mDirection = new Vector2((left ? -.5f : .5f), 1);
-		//direction = Vector2.up; 
-		physicsComponent.AddForce(mDirection * 200);
+		physicsComponent.AddForce(mDirection);
 	}
 
+	void StopGravity()
+	{
+		//gameObject.GetComponent<Rigidbody2D>().des
+		Destroy(physicsComponent);
+		//.compon = false;
+	}
 }
