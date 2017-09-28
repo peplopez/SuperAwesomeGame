@@ -9,8 +9,17 @@ public class Clock : MonoBehaviour {
 	AnimatorStateInfo mInitialStateInfo;
 	AnimatorStateInfo mAlarmStateInfo;
 
+	public Camera cam;
+
 	void Start () {
 		mAnimatorComponent = GetComponent<Animator>();
+
+		Vector3 screenPos = cam.ScreenToWorldPoint(new Vector3(400, 400, 0));
+		
+			//WorldToScreenPoint(this.transform.position);
+
+		Debug.Log("target is " + screenPos.x + " pixels from the left");
+		//this.transform.position = screenPos;
 
 		SubscribeToEvents();
 		//RestartClock();
@@ -40,12 +49,12 @@ public class Clock : MonoBehaviour {
 	void SubscribeToEvents()
 	{
 		Messaging.AddListener(GameEvent.StartStage, OnStartStage, Messaging.Filter.All);
-		//Messaging.AddListener(GameEvent.EndStage, OnEndStage, Messaging.Filter.All);
+		Messaging.AddListener(GameEvent.EndStage, OnEndStage, Messaging.Filter.All);
 	}
 	void UnSubscribeToEvents()
 	{
 		Messaging.RemoveListener(GameEvent.StartStage, OnStartStage);
-		//Messaging.RemoveListener(GameEvent.EndStage, OnEndStage);
+		Messaging.RemoveListener(GameEvent.EndStage, OnEndStage);
 	}
 
 	void OnStartStage(GameObject sender, GameObject receiver, GameEvent gameEvent, object param)
@@ -53,10 +62,10 @@ public class Clock : MonoBehaviour {
 		RestartClock();
 	}
 
-	/*void OnEndStage(GameObject sender, GameObject receiver, GameEvent gameEvent, object param)
+	void OnEndStage(GameObject sender, GameObject receiver, GameEvent gameEvent, object param)
 	{
-
-	}*/
+		mAnimatorComponent.StopPlayback();
+	}
 
 	// Update is called once per frame
 	void Update ()

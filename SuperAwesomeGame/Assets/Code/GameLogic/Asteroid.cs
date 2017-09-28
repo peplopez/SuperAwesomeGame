@@ -10,14 +10,18 @@ public class Asteroid : MonoBehaviour {
 	float force = 100f;
 
 	//Is the large asteroid. I prefered not to choose a solution based on inhiterance for the case of the large asteroids. 
-	protected bool mBig=false;
-	public bool Big { get { return mBig; } }
+	protected bool mSuper=false;
+	public bool Big { get { return mSuper; } }
 
 	protected float mSpeed;
 	public float Speed { get { return mSpeed; } set { mSpeed = value; } }
 	
 	private Vector2 mDirection;
 	private Rigidbody2D physicsComponent;
+
+	//In process of destruction
+	bool Impacted = false;
+	protected Vector3 DestructionSpeed = new Vector3(0.5f, 0.5f, 0.5f) * 5;
 
 	protected void Start ()
 	{
@@ -33,7 +37,7 @@ public class Asteroid : MonoBehaviour {
 			//gameObject.GetComponent<Rigidbody2D>().AddForce(mDirection * magnitude);
 
 		//Check collision to the ground
-		if (transform.position.y < App.GM.utils.GroundY)
+		if (!Impacted && transform.position.y < App.GM.utils.GroundY)
 			ImpactWithGround();
 	}
 
@@ -47,27 +51,31 @@ public class Asteroid : MonoBehaviour {
 	protected virtual void tapHandler(object sender, System.EventArgs e)
 	{
 		Messaging.Send(gameObject, null, GameEvent.AsteroidHittedByPlayer, null);
-		//m_tapGesture.Tapped -= tapHandler;
-		Debug.Log("Destroy");
+		m_tapGesture.Tapped -= tapHandler;
 		StartCoroutine(DestroyByPlayerHitCorroutine());
 	}
 
 	//Same behaviour in both cases, no need for being virtual
 	protected void ImpactWithGround()
 	{
+		//Asteroid in state of auto-destruction
+		Impacted = true;
+
 		m_tapGesture.Tapped -= tapHandler;
-		Messaging.Send(gameObject, null, GameEvent.AsteroidFallen, null);
+		
+		//Corroutine for not being destroyed inmediataly, it could be an explosion or make it small until disappear, etc
 		StartCoroutine(DestroyByGroundImpact());
-		Debug.Log("Impact with ground. Player lose one life.");		
+
+		//Debug.Log("Impact with ground. Player lose one life.");		
 	}
 
 	protected virtual IEnumerator DestroyByPlayerHitCorroutine()
 	{
 		while (transform.localScale.x > 0f)
-		{
-			transform.localScale = transform.localScale - 5 * new Vector3(0.5f, 0.5f, 0.5f) * Time.deltaTime;
+		{			
+			transform.localScale -= DestructionSpeed * Time.deltaTime;
 			yield return null;
-		}
+		}		
 		Destroy(this.gameObject);
 	}
 
@@ -75,12 +83,17 @@ public class Asteroid : MonoBehaviour {
 	{
 		while (transform.localScale.x > 0f)
 		{
-			transform.localScale = transform.localScale - 5 * new Vector3(0.5f, 0.5f, 0.5f) * Time.deltaTime;
+			transform.localScale -= DestructionSpeed * Time.deltaTime;
 			yield return null;
 		}
+		//Send event to GameManager, which is subscribed, and substract one live 
+		Messaging.Send(gameObject, null, GameEvent.AsteroidFallen, null);
 		Destroy(this.gameObject);
 	}
 
+	//It is only used by the asteroids created by the SuperAsteroid. These asteroids have a limited time oblicuous trayectory
+	// StopGravity delayed method will turn the asteroid to a completely normal asteroid.
+	// In the scene there are two Collider2D gameobjects that ensure that these asteroids never are no accesible to the player to hit.
 	public void ActivateGravity(bool left)
 	{
 		if (physicsComponent != null)
@@ -88,16 +101,21 @@ public class Asteroid : MonoBehaviour {
 
 		Invoke("StopGravity", 0.4f);
 		physicsComponent = gameObject.AddComponent<Rigidbody2D>();
-		
+		GetComponent<Collider2D>().isTrigger = false;
 		mDirection = new Vector2((left ? -force : force), 1);
 
 		physicsComponent.AddForce(mDirection);
 	}
 
+	//Only used by SuperAsteroid little asteroids to disable the added force.
 	void StopGravity()
-	{
-		//gameObject.GetComponent<Rigidbody2D>().des
+	{		
 		Destroy(physicsComponent);
-		//.compon = false;
+	}
+
+
+	void StopAsteroid()
+	{
+		mSpeed = 0;
 	}
 }

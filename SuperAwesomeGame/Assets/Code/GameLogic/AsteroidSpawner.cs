@@ -6,10 +6,39 @@ public class AsteroidSpawner : MonoBehaviour {
 		
 	public GameObject Asteroid;
 	public float m_randomGenerationRate=0.5f;
+	private bool StopSpawning;
 	
 	// Use this for initialization
 	void Start ()
 	{
+		SubscribeToEvents();
+	}
+
+	void SubscribeToEvents()
+	{
+		Messaging.AddListener(GameEvent.StartStage, OnStartStage, Messaging.Filter.All);
+		//Messaging.AddListener(GameEvent.EndStage, OnEndStage, Messaging.Filter.All);
+	}
+	void UnSubscribeToEvents()
+	{
+		Messaging.RemoveListener(GameEvent.StartStage, OnStartStage);
+		//Messaging.RemoveListener(GameEvent.EndStage, OnEndStage);
+	}
+
+	void OnStartStage(GameObject sender, GameObject receiver, GameEvent gameEvent, object param)
+	{
+		int childs = transform.childCount;
+		for (int i = 0; i < childs; i++)
+		{
+			Destroy(transform.GetChild(i).gameObject);
+		}
+		OnEnable();
+		
+	}
+
+	private void OnEnable()
+	{
+		StopSpawning = false;
 		if (Asteroid != null)
 		{
 			StartCoroutine("Spawner");
@@ -19,10 +48,10 @@ public class AsteroidSpawner : MonoBehaviour {
 			Debug.LogError("Reference to Asteroid's prefab not set");
 		}
 	}
-		
+
 	private IEnumerator Spawner()
 	{
-		while (true)
+		while (!StopSpawning)
 		{
 			GameObject asteriodObject = CreateAsteroidOfRandomType();			
 
@@ -42,7 +71,7 @@ public class AsteroidSpawner : MonoBehaviour {
 
 		randomAsteroid = Instantiate(Asteroid) ;
 		if (big)
-			randomAsteroid.AddComponent<BigAsteroid>();
+			randomAsteroid.AddComponent<SuperAsteroid>();
 		else
 			randomAsteroid.AddComponent<Asteroid>();
 
@@ -64,9 +93,20 @@ public class AsteroidSpawner : MonoBehaviour {
 		return UnityEngine.Random.Range(App.GM.utils.MIN_SPEED, App.GM.utils.MAX_SPEED);
 	}
 
-
 	// Update is called once per frame
 	void Update () {
 		
 	}
+
+	void StopAsteroid()
+	{
+		StopSpawning = true;
+		
+	}
+
+	private void OnDestroy()
+	{
+		UnSubscribeToEvents();
+	}
+
 }
