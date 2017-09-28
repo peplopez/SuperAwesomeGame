@@ -5,7 +5,7 @@ using UnityEngine;
 public class AsteroidSpawner : MonoBehaviour {
 		
 	public GameObject Asteroid;
-	public float m_randomGenerationRate=0.5f;
+	public float m_randomGenerationRate;
 	private bool StopSpawning;
 	
 	// Use this for initialization
@@ -39,6 +39,7 @@ public class AsteroidSpawner : MonoBehaviour {
 	private void OnEnable()
 	{
 		StopSpawning = false;
+		m_randomGenerationRate = 0.75f - 0.1f * App.GM.utils.difficulty;
 		if (Asteroid != null)
 		{
 			StartCoroutine("Spawner");
@@ -66,8 +67,8 @@ public class AsteroidSpawner : MonoBehaviour {
 		GameObject randomAsteroid;
 		bool big=false;
 
-		//10% of asteroids will be of large type
-		big = ( UnityEngine.Random.Range(0, 10)==1 );		
+		//10% (+ a difficulty bonus) of asteroids will be of large type
+		big = ( UnityEngine.Random.Range(0, 10 - App.GM.utils.difficulty) == 1 );		
 
 		randomAsteroid = Instantiate(Asteroid) ;
 		if (big)
@@ -90,7 +91,7 @@ public class AsteroidSpawner : MonoBehaviour {
 
 	private float GetRandomSpeed()
 	{
-		return UnityEngine.Random.Range(App.GM.utils.MIN_SPEED, App.GM.utils.MAX_SPEED);
+		return UnityEngine.Random.Range(App.GM.utils.MIN_SPEED, App.GM.utils.MAX_SPEED) + App.GM.utils.difficulty;
 	}
 
 	// Update is called once per frame

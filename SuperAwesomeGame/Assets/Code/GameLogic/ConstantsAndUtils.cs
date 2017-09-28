@@ -11,8 +11,12 @@ public class ConstantsAndUtils
 
 	public readonly float OFFSET_X = 3;
 	public readonly float SPAWN_Y = 6;
-	public readonly float MIN_SPEED = 2f;
-	public readonly float MAX_SPEED = 5f;
+
+	//Change this variable in editor for adjust difficulty
+	public int difficulty = 0; //   0 easy, 1 normal, 2 hard (could be a Enum but for simplicity is a simple int)
+
+	public readonly float MIN_SPEED = 0f;
+	public readonly float MAX_SPEED = 3f;
 
 	public Vector2 LeftScreenLimit;
 	public Vector2 RightScreenLimit;
@@ -25,11 +29,22 @@ public class ConstantsAndUtils
 	//public
 
 	#endregion
-
-	public void Fade(bool away, Color color)
+	public void EnableFadeObject()
 	{
-		
-		m_imgFade.Fade(away, color);
+		m_imgFade.img.enabled = true;
+			//gameObject.SetActive(true);
+	}
+
+	public void DisableFadeObject()
+	{
+		m_imgFade.img.enabled = false;
+		//m_imgFade.gameObject.SetActive(false);
+	}
+
+
+	public void Fade(bool away, Color color, float speed = 1f )
+	{		
+		m_imgFade.Fade(away, color, speed);
 	}
 
 	public ConstantsAndUtils(Camera camera, Canvas canvas)
