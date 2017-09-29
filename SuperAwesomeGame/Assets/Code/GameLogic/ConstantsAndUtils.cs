@@ -10,7 +10,7 @@ public class ConstantsAndUtils
 	public Canvas m_canvas;
 	private ImageFade m_imgFade;
 
-	public readonly float OFFSET_X = 3;
+	public readonly float OFFSET_X = 30;
 	public readonly float SPAWN_Y = 6;
 
 	//Change this variable in editor for adjust difficulty
