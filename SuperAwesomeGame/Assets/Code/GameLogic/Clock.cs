@@ -8,6 +8,7 @@ public class Clock : MonoBehaviour {
 	Animator mAnimatorComponent;
 	AnimatorStateInfo mInitialStateInfo;
 	//AnimatorStateInfo mAlarmStateInfo;
+	AudioSource mAudioSourceComponent;
 
 	public Camera cam;
 
@@ -18,6 +19,13 @@ public class Clock : MonoBehaviour {
 
 		mInitialStateInfo = mAnimatorComponent.GetCurrentAnimatorStateInfo(0);
 		//mAlarmStateInfo = mAnimatorComponent.GetNextAnimatorStateInfo(0);		
+
+		mAudioSourceComponent = GetComponent<AudioSource>();	
+	}
+
+	void PlayTick()
+	{
+		mAudioSourceComponent.Play();
 	}
 
 	void RestartClock()
@@ -58,12 +66,12 @@ public class Clock : MonoBehaviour {
 			if (mAnimatorComponent.GetCurrentAnimatorStateInfo(0).fullPathHash == mInitialStateInfo.fullPathHash)
 			{
 				Messaging.Send(gameObject, null, GameEvent.EndStage, null);
-				Debug.Log("Alarm sounds");
+				Debug.Log("Alarm sounds. Player Wins!");
 			}
 			else
 			{
-				//Messaging.Send(gameObject, null, GameEvent.StartStage, null);
-				//Debug.Log("Restarting Alarm");
+				mAnimatorComponent.speed = 0;
+				Debug.Log("Stopping clock until player restart game");
 			}
 		}
 	}
