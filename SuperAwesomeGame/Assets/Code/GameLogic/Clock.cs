@@ -7,25 +7,24 @@ public class Clock : MonoBehaviour {
 	// Use this for initialization
 	Animator mAnimatorComponent;
 	AnimatorStateInfo mInitialStateInfo;
-	//AnimatorStateInfo mAlarmStateInfo;
-	AudioSource mAudioSourceComponent;
-
-	public Camera cam;
+	AudioSource[] mAudioSourceComponent;
 
 	void Start () {
 		mAnimatorComponent = GetComponent<Animator>();
 		
 		SubscribeToEvents();
-
 		mInitialStateInfo = mAnimatorComponent.GetCurrentAnimatorStateInfo(0);
-		//mAlarmStateInfo = mAnimatorComponent.GetNextAnimatorStateInfo(0);		
-
-		mAudioSourceComponent = GetComponent<AudioSource>();	
+		mAudioSourceComponent = GetComponents<AudioSource>();
 	}
 
 	void PlayTick()
+	{		
+		mAudioSourceComponent[0].Play();
+	}
+
+	void PlayRing()
 	{
-		mAudioSourceComponent.Play();
+		mAudioSourceComponent[1].Play();
 	}
 
 	void RestartClock()
@@ -48,19 +47,21 @@ public class Clock : MonoBehaviour {
 
 	void OnStartStage(GameObject sender, GameObject receiver, GameEvent gameEvent, object param)
 	{
+		//Only attend to other's gameobject events of this type
 		if (sender!=this.gameObject)
 			RestartClock();
 	}
 
 	void OnEndStage(GameObject sender, GameObject receiver, GameEvent gameEvent, object param)
 	{
+		//Only attend to other's gameobject events of this type
 		if (sender != this.gameObject)
 			mAnimatorComponent.speed = 0;		
 	}
 
-
 	void Update ()
 	{
+	//The clock, with its animation, controls the 60 seconds and send the notification to the GameManager.
 		if (mAnimatorComponent.IsInTransition(0))
 		{
 			if (mAnimatorComponent.GetCurrentAnimatorStateInfo(0).fullPathHash == mInitialStateInfo.fullPathHash)
@@ -70,6 +71,7 @@ public class Clock : MonoBehaviour {
 			}
 			else
 			{
+				//Stop the clock Animation. The player choose now when to restart the game. Clock waits stopped
 				mAnimatorComponent.speed = 0;
 				Debug.Log("Stopping clock until player restart game");
 			}

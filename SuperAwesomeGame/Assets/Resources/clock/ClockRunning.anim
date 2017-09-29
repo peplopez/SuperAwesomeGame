@@ -187,7 +187,7 @@ AnimationClip:
     intParameter: 0
     messageOptions: 0
   - time: 59.916668
-    functionName: PlayTick
+    functionName: PlayRing
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

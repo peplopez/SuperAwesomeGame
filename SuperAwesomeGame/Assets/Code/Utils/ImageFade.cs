@@ -4,7 +4,6 @@ using System.Collections;
 
 public class ImageFade : MonoBehaviour
 {
-	// the image you want to fade, assign in inspector
 	public Image img;
 	private Color mColor;
 	private float mSpeed;

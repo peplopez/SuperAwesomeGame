@@ -23,18 +23,24 @@ public class Asteroid : MonoBehaviour {
 	bool Impacted = false;
 	protected Vector3 DestructionSpeed = new Vector3(0.5f, 0.5f, 0.5f) * 5;
 
+	AudioSource mAudioExplosion;
+
 	protected void Start ()
 	{
 		AddGestures();
-	}	
-	
+
+		mAudioExplosion = GetComponent<AudioSource>();
+	}
+
+	protected void DestructionSound()
+	{
+		mAudioExplosion.Play();
+	}
+
 	// Update is called once per frame
 	protected void Update () {
 		//Asteriod's fall			
 		transform.Translate(mSpeed * Vector3.down * Time.deltaTime);
-
-		//if (gameObject.GetComponent<Rigidbody2D>() != null)
-			//gameObject.GetComponent<Rigidbody2D>().AddForce(mDirection * magnitude);
 
 		//Check collision to the ground
 		if (!Impacted && transform.position.y < App.GM.utils.GroundY)
@@ -65,12 +71,11 @@ public class Asteroid : MonoBehaviour {
 		
 		//Corroutine for not being destroyed inmediataly, it could be an explosion or make it small until disappear, etc
 		StartCoroutine(DestroyByGroundImpact());
-
-		//Debug.Log("Impact with ground. Player lose one life.");		
 	}
 
 	protected virtual IEnumerator DestroyByPlayerHitCorroutine()
 	{
+		DestructionSound();
 		while (transform.localScale.x > 0f)
 		{			
 			transform.localScale -= DestructionSpeed * Time.deltaTime;

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+//A helper class to access constants and other data. Also utility methods
 
 public class ConstantsAndUtils
 {
@@ -32,15 +33,12 @@ public class ConstantsAndUtils
 	public void EnableFadeObject()
 	{
 		m_imgFade.img.enabled = true;
-			//gameObject.SetActive(true);
 	}
 
 	public void DisableFadeObject()
 	{
 		m_imgFade.img.enabled = false;
-		//m_imgFade.gameObject.SetActive(false);
 	}
-
 
 	public void Fade(bool away, Color color, float speed = 1f )
 	{		

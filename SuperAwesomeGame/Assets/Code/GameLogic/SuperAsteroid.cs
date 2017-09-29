@@ -12,6 +12,7 @@ public class SuperAsteroid : Asteroid {
 		base.Start();
 		mSuper = true;
 		transform.localScale *= 1.5f;
+		//To instaantiate the others two by a original prefab of a standard Asteroid
 		mOriginalAsteroidPrefab = Resources.Load("Asteroid") as GameObject;
 	}	
 
@@ -23,8 +24,10 @@ public class SuperAsteroid : Asteroid {
 		StartCoroutine(DestroyByPlayerHitCorroutine());
 	}	
 
+	//Override from base for a differente behaviour 
 	protected override IEnumerator DestroyByPlayerHitCorroutine()
 	{
+		DestructionSound();
 		while (transform.localScale.x > 0f)
 		{
 			transform.localScale -= 3 * DestructionSpeed * Time.deltaTime;
@@ -35,6 +38,7 @@ public class SuperAsteroid : Asteroid {
 		CreateTwoAsteroids(2f);
 	}
 
+	//splitted in two, adding the Asteroid component ...
 	private void CreateTwoAsteroids(float  speed)
 	{		
 		GameObject goLeft = GameObject.Instantiate(mOriginalAsteroidPrefab) as GameObject;

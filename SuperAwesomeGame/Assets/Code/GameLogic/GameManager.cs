@@ -14,6 +14,8 @@ public class GameManager : MonoBehaviour
 	public Text mLives;
 	public AsteroidSpawner mAsteroidSpawner;
 
+	public GameObject mTittle;
+
 	[SerializeField]
 	private int Difficulty;
 		
@@ -26,6 +28,9 @@ public class GameManager : MonoBehaviour
 	private GameObject mStageClearObject;
 	[SerializeField]
 	private GameObject mGameoverObject;
+	
+	//Audio was the latest things that I added, has a very simple implementation
+	private AudioSource[] mAudioComponent;
 
 	void SubscribeToEvents()
 	{
@@ -56,19 +61,22 @@ public class GameManager : MonoBehaviour
 		this.utils.difficulty = diff;
 	}
 
-
 	void OnEndStage(GameObject sender, GameObject receiver, GameEvent gameEvent, object param)
 	{
+		//The stage finish with a victory
 		if (mLivesCounter > 0)
 		{
 			mStageClearObject.SetActive(true);
 			mAsteroidSpawner.BroadcastMessage("StopAsteroid");
+			mAudioComponent[1].Play();
 		}
 	}
 
 	void OnAsteroidFallen(GameObject sender, GameObject receiver, GameEvent gameEvent, object param)
 	{
-		mLivesCounter--;		
+		mLivesCounter--;
+		mAudioComponent[0].Play();
+
 		if (mLivesCounter <= 0)
 		{
 			mLivesCounter = 0;
@@ -91,17 +99,17 @@ public class GameManager : MonoBehaviour
 	{
 		mCounterOfAsteriodsDestroyedByPlayer++;
 		mScore.text = mCounterOfAsteriodsDestroyedByPlayer.ToString();
-		//Update counter in screen.
-
 	}
 
 	void Start ()
 	{
 		App.GM = this;
+		mTittle.SetActive(false);
 		utils = new ConstantsAndUtils(mCamera, mCanvas);
 		SetDifficulty(Difficulty);
 		SetLevelProperties();
-		SubscribeToEvents();		
+		SubscribeToEvents();
+		mAudioComponent = GetComponents<AudioSource>();
 	}
 
 	public void SetLevelProperties()

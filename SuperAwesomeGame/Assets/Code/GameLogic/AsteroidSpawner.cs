@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class AsteroidSpawner : MonoBehaviour {
@@ -7,22 +6,15 @@ public class AsteroidSpawner : MonoBehaviour {
 	public GameObject Asteroid;
 	public float m_randomGenerationRate;
 	private bool StopSpawning;
-	
-	// Use this for initialization
-	void Start ()
-	{
-		SubscribeToEvents();
-	}
-
+		
 	void SubscribeToEvents()
 	{
 		Messaging.AddListener(GameEvent.StartStage, OnStartStage, Messaging.Filter.All);
-		//Messaging.AddListener(GameEvent.EndStage, OnEndStage, Messaging.Filter.All);
 	}
+
 	void UnSubscribeToEvents()
 	{
 		Messaging.RemoveListener(GameEvent.StartStage, OnStartStage);
-		//Messaging.RemoveListener(GameEvent.EndStage, OnEndStage);
 	}
 
 	void OnStartStage(GameObject sender, GameObject receiver, GameEvent gameEvent, object param)
@@ -32,12 +24,13 @@ public class AsteroidSpawner : MonoBehaviour {
 		{
 			Destroy(transform.GetChild(i).gameObject);
 		}
-		OnEnable();
-		
+		UnSubscribeToEvents();
+		OnEnable();		
 	}
 
 	private void OnEnable()
 	{
+		SubscribeToEvents();
 		StopSpawning = false;
 		m_randomGenerationRate = 0.75f - 0.1f * App.GM.utils.difficulty;
 		if (Asteroid != null)
@@ -76,10 +69,8 @@ public class AsteroidSpawner : MonoBehaviour {
 		else
 			randomAsteroid.AddComponent<Asteroid>();
 
-		randomAsteroid.transform.position = GetRandomSpawnPosition();
-
-		float speed = GetRandomSpeed(); 
-		randomAsteroid.GetComponent<Asteroid>().Speed = speed;
+		randomAsteroid.transform.position = GetRandomSpawnPosition();		
+		randomAsteroid.GetComponent<Asteroid>().Speed = GetRandomSpeed();
 
 		return randomAsteroid;
 	}
@@ -94,20 +85,13 @@ public class AsteroidSpawner : MonoBehaviour {
 		return UnityEngine.Random.Range(App.GM.utils.MIN_SPEED, App.GM.utils.MAX_SPEED) + App.GM.utils.difficulty;
 	}
 
-	// Update is called once per frame
-	void Update () {
-		
-	}
-
 	void StopAsteroid()
 	{
-		StopSpawning = true;
-		
+		StopSpawning = true;		
 	}
 
 	private void OnDestroy()
 	{
 		UnSubscribeToEvents();
 	}
-
 }
